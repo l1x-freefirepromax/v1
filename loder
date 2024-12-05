@@ -1,0 +1,49 @@
+local _Players, _Lighting, _StarterGui, _MaterialService = game:GetService("Players"), game:GetService("Lighting"), game:GetService("StarterGui"), game:GetService("MaterialService")
+
+	for i, v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+		if v:IsA("Accessory") then
+			v:Destroy()
+		end
+	end
+	for i, v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+		if v:IsA("Shirt") then
+			v:Remove()
+		end
+	end
+	for i, v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+		if v:IsA("Pants") then
+			v:Remove()
+		end
+	end
+	for _, v in pairs(game.Workspace:GetDescendants()) do
+		if v:IsA("ShadowMap") then
+			v:Destroy()
+		end
+	end
+	for i,v in pairs(game:GetService("Lighting"):GetDescendants()) do
+		if v.ClassName == "BlurEffect" or v.Name == "underwatercc" then
+			v.Enabled = false
+		end
+	end
+	for _, object in pairs(game:GetDescendants()) do
+		if object:IsA("BasePart") or object:IsA("MeshPart") then
+			object.Transparency = Config["Reduce"]["Transparency"] 
+		end
+		if object:IsA("ParticleEmitter") or object:IsA("Trail") then
+			object.Enabled = false 
+		end
+	end
+	for i, e in pairs(game.Lighting:GetChildren()) do
+		if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+			e.Enabled = false
+		end
+	end
+
+	coroutine.wrap(function()
+		settings().Rendering.QualityLevel = 1
+		settings().Rendering.MeshPartDetailLevel = Enum.MeshPartDetailLevel.Level04
+		_MaterialService.Use2022Materials = true
+		for _, _v in pairs(_MaterialService:GetChildren()) do
+			_v:Destroy()
+		end
+	end)
